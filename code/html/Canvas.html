@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>icon</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="line">
+        您的浏览器不支持 HTML5 canvas 标签。
+    </canvas>
+    <canvas id="ellipse">
+        椭圆
+    </canvas>
+    <script type="text/javascript">
+
+        /**
+         * 角度转弧度
+         */
+        let angle2Radian = function (angle) {
+            return angle * Math.PI / 180;
+        }
+
+        /**
+         * 画椭圆
+         * @param {
+         *          width, 画布宽
+         *          height, 画布高
+         *          radiusX, X轴
+         *          radiuxY, Y轴
+         *          rotation, 旋转角度
+         *          start, 起始角度
+         *          end,    结束角度
+         *          fillColor, 填充色
+         *          lineColor 边线色
+         *          }
+         */
+        let drawEllipse = function (canvas, param) {
+            let width = param.width || 100;
+            let height = param.height || 100;
+            let context = canvas.getContext('2d');
+            canvas.width = width;
+            canvas.height = height;
+            context.ellipse(width / 2, height / 2, param.radiusX, param.radiuxY, param.rotation, param.start, param.end);
+            context.fillStyle = param.fillColor;
+            context.strokeStyle = param.lineColor;
+            context.fill();
+            context.stroke();
+            context.closePath();
+        }
+
+        /**
+         * 线画船
+         * @param { width: 10, 宽
+         *          height: 20, 高
+         *          fillColor: "#f8f", 填充色
+         *          lineColor: "#000", 边线色
+         *          speed: 0, 速度
+         *          rateOfTurn: 0 航向
+         *         }
+         */
+        let drawline = function (canvas, param) {
+            let fillColor = param.fillColor || "green";
+            let lineColor = param.lineColor || "black";
+            let speed = param.speed || 0;
+            speed = parseFloat(speed) * 2;
+            let rateOfTurn = param.rateOfTurn || 0;
+            let width = param.width;
+            let height = param.height;
+            let l = width / 4 > 10 ? 10 : width / 4;
+            let ll = height > 20.8 ? 20.8 : height / 4;
+            //创建2d画布
+            let context = canvas.getContext('2d');
+            canvas.width = width;
+            canvas.height = height + speed;
+            //设置坐标点
+            let one = { x: width / 2, y: speed };
+            let two = { x: one.x - Math.tan(angle2Radian(55)) * l, y: 8 + speed };
+            let three = { x: 0, y: ll + speed };
+            let four = { x: 0, y: height + speed - 5 };
+            let five = { x: one.x - Math.tan(angle2Radian(45)) * l, y: height + speed };
+            let six = { x: Math.tan(angle2Radian(45)) * l + one.x, y: height + speed };
+            let seven = { x: width, y: height + speed - 5 };
+            let eight = { x: width, y: ll + speed };
+            let nine = { x: Math.tan(angle2Radian(55)) * l + one.x, y: 8 + speed };
+            let ten = { x: width / 2, y: 0 };
+            let eleven = { x: width / 2 + rateOfTurn, y: 0 };
+            //移动到绘制起点
+            context.moveTo(one.x, one.y);
+            //绘制船
+            context.lineTo(two.x, two.y);
+            context.lineTo(three.x, three.y);
+            context.lineTo(four.x, four.y);
+            context.lineTo(five.x, five.y);
+            context.lineTo(six.x, six.y);
+            context.lineTo(seven.x, seven.y);
+            context.lineTo(eight.x, eight.y);
+            context.lineTo(nine.x, nine.y);
+            context.lineTo(one.x, one.y);
+            //绘制速度线
+            context.lineTo(ten.x, ten.y);
+            //移动速度点
+            context.moveTo(ten.x, ten.y);
+            //绘制方向线
+            context.lineTo(eleven.x, eleven.y);
+            //添加填充色
+            context.fillStyle = fillColor;
+            context.fill();
+            //添加边线
+            context.strokeStyle = lineColor;
+            context.closePath();
+            context.stroke();
+        }
+
+        drawline(document.getElementById("line"), { width: 100, height: 200, fillColor: "#f8f", lineColor: "#000", speed: 0, rateOfTurn: 0 });
+        drawEllipse(document.getElementById("ellipse"), { width: 100, height: 100, radiusX: 30, radiuxY: 40, rotation: Math.PI, start: Math.PI / 2, end: Math.PI * 2,fillColor: "#f8f",lineColor: "#000" })
+    </script>
+</body>
+
+</html>
