@@ -2,6 +2,7 @@ package code.java;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -66,7 +67,7 @@ public class FileTest {
                 }
                 if(file.isFile()){
                     ZipEntry entry = new ZipEntry(relativePath);
-                    try(BufferedInputStream bis = new BufferedInputStream(new FileInptStream(file))){
+                    try(BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))){
                         zos.putNextEntry(entry);
                         byte[] buff = new byte[1024*10];
                         int read;
