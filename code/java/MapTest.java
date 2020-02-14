@@ -27,9 +27,9 @@ public class MapTest {
      * @return 距离
      */
     public static double distance(Point2D.Double p1, Point2D.Double p2) {
-        double a = rad(p1.x) - rad(p2.x);
-        double b = rad(p1.y) - rad(p2.y);
-        double s = 2 * asin(sqrt(pow(sin(a / 2), 2) + cos(rad(p1.x)) * cos(rad(p2.x)) * pow(sin(b / 2), 2)));
+        var a = rad(p1.x) - rad(p2.x);
+        var b = rad(p1.y) - rad(p2.y);
+        var s = 2 * asin(sqrt(pow(sin(a / 2), 2) + cos(rad(p1.x)) * cos(rad(p2.x)) * pow(sin(b / 2), 2)));
         return s * EARTH_RADIUS;
     }
 

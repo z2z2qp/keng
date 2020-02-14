@@ -29,10 +29,10 @@ public class FileTest {
     }
 
     private static void copyFolder(File source,File target) throws IOException {
-        File copyFile = new File(target,source.getName());
+        var copyFile = new File(target,source.getName());
         if(source.isDirectory()){
             copyFile.mkdir();
-            File[] files = source.listFiles();
+            var files = source.listFiles();
             if(files != null){
                 for(File file:files){
                     copyFolder(file, copyFile);
@@ -57,7 +57,7 @@ public class FileTest {
     }
 
     private static void zip(File source,String relativePath,ZipOutputStream zos){
-        File[] files = source.listFiles();
+        var files = source.listFiles();
         if(!Objects.isNull(files)){
             for(File file:files){
                 if(relativePath.length() == 0){
@@ -66,10 +66,10 @@ public class FileTest {
                     relativePath = relativePath+File.separatorChar+file.getName();
                 }
                 if(file.isFile()){
-                    ZipEntry entry = new ZipEntry(relativePath);
+                    var entry = new ZipEntry(relativePath);
                     try(BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))){
                         zos.putNextEntry(entry);
-                        byte[] buff = new byte[1024*10];
+                        var buff = new byte[1024*10];
                         int read;
                         while((read = bis.read(buff, 0, 1024*10))>0){
                             zos.write(buff,0,read);
