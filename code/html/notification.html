@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh_cn">
+<head>
+    <meta charset="utf-8"/>
+    <title>通知</title>
+</head>
+<body style="background: yellow;">
+    <button id = "tip" class="tip">显示通知</button>
+</body>
+<script>
+    var instance = function(title,msg){
+        var instance = new Notification(title,{
+            body:msg,
+            icon:"https://tse4-mm.cn.bing.net/th?id=OIP.j_XAeh-sV4-BIORkbJJL7gHaHa&pid=Api&rs=1"
+        });
+        instance.onclick = function(){
+            document.body.style="background:red";
+            instance.close();
+        }
+        instance.onerror = function(e){
+            console.log("error")
+            console.error(e)
+        }
+        instance.onshow = function(e){
+            console.log("show")
+            console.warn(e)
+        }
+        instance.onclose = function(e){
+            console.log("close")
+            console.warn(e)
+        }
+    }
+    var showMsg = function(title,msg){
+        var notification = window.Notification || window.mozNotification|| window.webkitNotification;
+        if(notification){//浏览器支持
+            if(notification.permission == "granted"){//已经允许通知
+                instance(title,msg)
+            }else{
+                Notification.requestPermission(function(status){
+                    if(status == "granted"){
+                        instance(title,msg);
+                    }else{
+                        console.warn("用户禁止")
+                    }
+                });
+            }
+        }else{
+            document.title = "[    ]"
+        }
+    }
+    document.getElementById("tip").addEventListener("click",function(){
+        showMsg("title","message");
+    });
+</script>
+</html>
