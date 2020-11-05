@@ -1,5 +1,3 @@
-import java.math.BigInteger;
-
 public class Rational extends Number implements Comparable<Rational> {
 
     public static final Rational NaN = new Rational(0, 0);
@@ -34,11 +32,11 @@ public class Rational extends Number implements Comparable<Rational> {
         }
     }
 
-    public int getmDenominator() {
+    public long getmDenominator() {
         return mDenominator;
     }
 
-    public int getmNumerator() {
+    public long getmNumerator() {
         return mNumerator;
     }
 
@@ -90,8 +88,8 @@ public class Rational extends Number implements Comparable<Rational> {
 
     @Override
     public int hashCode() {
-        int numeratorFlipped = mNumerator << 16 | mNumerator >>> 16;
-        return mDenominator ^ numeratorFlipped;
+        long numeratorFlipped = mNumerator << 16 | mNumerator >>> 16;
+        return (int) (mDenominator ^ numeratorFlipped);
     }
 
     public static long gcd(long numerator, long denominator) {
@@ -128,7 +126,7 @@ public class Rational extends Number implements Comparable<Rational> {
         } else if (isNaN()) {
             return 0;
         } else {
-            return mNumerator / mDenominator;
+            return (int) (mNumerator / mDenominator);
         }
     }
 
@@ -170,7 +168,7 @@ public class Rational extends Number implements Comparable<Rational> {
         long thisNumerator = this.mNumerator * o.mDenominator;
         long otherNumerator = o.mNumerator * this.mDenominator;
 
-        return thisNumerator - otherNumerator;
+        return thisNumerator - otherNumerator > 0 ? 1 : -1;
     }
 
     private static NumberFormatException invalidRational(String s) {
