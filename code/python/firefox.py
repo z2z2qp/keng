@@ -7,9 +7,9 @@ import time
 
 profile = webdriver.FirefoxProfile()
 
-profile.set_preference('permissions.default.image',1)##不加载图片
-profile.set_preference('dom.ipc.plugins.enabled.npswf32.dll',False)##禁用flash
-profile.set_preference('dom.ipc.plugins.enabled.libflashplayer.so',False)##禁用flash
+profile.set_preference('permissions.default.image',1) ##不加载图片
+profile.set_preference('dom.ipc.plugins.enabled.npswf32.dll',False) ##禁用flash
+profile.set_preference('dom.ipc.plugins.enabled.libflashplayer.so',False) ##禁用flash
 
 ##无界面
 opt = Options()
