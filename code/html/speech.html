@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>语音播报</title>
+        <script type="text/javascript">
+            var message = new SpeechSynthesisUtterance("语音通知")
+            var clilll = function(){
+                console.info(1)
+                window.speechSynthesis.speak(message)
+                console.info(2);
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="clilll()">bbb</button>
+    </body>
+</html>
